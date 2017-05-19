@@ -10,14 +10,22 @@ Can be used on multiple environments at the same time.
 ## Requirements
 
 * [Docker](https://docs.docker.com/engine/installation/)
-* SilverStripe 4.0+
+* SilverStripe 3.1+
 
 ## How to use
 
 ### Require ss4-docker-compose configuration
 
+#### SilverStripe 4.x
+
 ```bash
-composer require --dev brettt89/ss4-docker-compose
+composer require --dev brettt89/ss4-docker-compose:4.x-dev
+```
+
+#### SilverStripe 3.x
+
+```bash
+composer require --dev brettt89/ss4-docker-compose:3.x-dev
 ```
 
 ### Start services
