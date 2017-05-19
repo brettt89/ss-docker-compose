@@ -2,7 +2,7 @@
     "name": "brettt89/ss4-docker-compose",
     "license": "MIT",
     "require": {
-        "silverstripe/framework": "4.0.x-dev"
+        "silverstripe/framework": "~3.1"
     },
     "bin": [
         "bin/docker-compose"
