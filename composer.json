@@ -3,7 +3,7 @@
     "license": "MIT",
     "require": {
         "silverstripe/framework": "4.0.x-dev"
-    }
+    },
     "bin": [
         "bin/dc"
     ]
