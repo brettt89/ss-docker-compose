@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Check if docker and docker-compose are installed
+command -v docker >/dev/null 2>&1 || { echo "docker is not installed. Aborting." >&2; exit 1; }
+command -v docker-compose >/dev/null 2>&1 || { echo "docker-compose is not installed. Aborting." >&2; exit 1; }
+
+package_dir="vendor/brettt89/ss4-docker-compose"
+
+action=$1
+
+# Generate project name from folder name
+projectname=${PWD##*/}
+projectname=`echo ${projectname// /_}`
+projectname=`echo ${projectname} | tr '[A-Z]' '[a-z]'`
+
+# Wrap docker-compose command to use config from package
+wrapped_command="docker-compose -p \"${projectname}\" -f ${package_dir}/src/project/docker-compose.yml"
+
+# Wrap docker-compose command to use config from package, passing Wordpress context on run action
+if [ "$action" = "up" ]; then
+	docker-compose up -p "ssproxy" -f ${package_dir}/src/proxy/docker-compose.yml -d
+fi
+
+${wrapped_command} $*
+
