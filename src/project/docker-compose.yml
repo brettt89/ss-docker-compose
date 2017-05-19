@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     image: brettt89/silverstripe-web
-    working_dir: /var/www
+    working_dir: /var/www/html
     volumes:
       - ../../../../..:/var/www/html
       - .env:/var/www/.env
