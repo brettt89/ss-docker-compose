@@ -1,0 +1,21 @@
+{
+    "name": "brettt89/ss4-docker-compose",
+    "type": "silverstripe-recipe",
+    "license": "MIT",
+    "repositories": {
+        "brettt89/ss-nginx-proxy": {
+            "type": "vcs",
+            "url": "https://github.com/brettt89/ss-nginx-proxy/"
+        }
+    },
+    "require": {
+        "tractorcow/recipe-plugin": "*",
+        "brettt89/ss-nginx-proxy": "dev-master",
+        "silverstripe/framework": "4.0.x-dev"
+    },
+    "extra": {
+        "project-files": [
+            "src/*"
+        ]
+    }
+}

@@ -1,0 +1,31 @@
+version: '3'
+services:
+  web:
+    image: brettt89/silverstripe-web
+    working_dir: /var/www
+    volumes:
+      - .:/var/www/html
+    environment:
+      - VIRTUAL_HOST=${COMPOSE_PROJECT_NAME}.local
+    networks:
+      - default
+      - ssnginxproxy_default
+
+  database:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - VIRTUAL_HOST=${COMPOSE_PROJECT_NAME}.db.local
+    networks:
+      - default
+      - ssnginxproxy_default
+
+volumes:
+  db-data:
+
+networks:
+  ssnginxproxy_default:
+    external: true
