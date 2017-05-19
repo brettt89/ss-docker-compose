@@ -1,6 +1,7 @@
 # SilverStripe 4 docker development environment
 
-Install docker based development environment for SilverStripe 4 application
+Docker based development environment for SilverStripe 4 applications
+Can be used on multiple environments at the same time.
 
 ## Maintainer Contact
 
@@ -29,15 +30,17 @@ By default, this setup will create 2 containers per project and 1 global nginx p
 
 Containers:
  - **web** (web server)
-   - Hostname: {folder_name}.local
+   - Hostname: `{folder_name}.local`
  - **database** (database server)
-   - Hostname: {folder_name}.db.local
+   - Hostname: `{folder_name}.db.local`
 
 NOTE: In order to access the servers by hostname you will need to map these domains to your "Hosts" IP.
 
-E.g. File: /etc/hosts, ({folder_name} = ss4)
+E.g. File: `/etc/hosts`, (`{folder_name} = "./ss4"`)
 
+```hostfile
 127.0.0.1	ss4.local
+```
 
 ### Advanced usage
 
@@ -45,8 +48,24 @@ The docker-compose executable included in this package does some additional chec
 
 However all docker-compose commands can be used via this package as per usual.
 
-E.g. SSH into web server.
+#### Running dev/build.
+
+```bash
+./vendor/bin/docker-compose exec web ./framework/sake dev/build
+```
+
+#### SSH into web server (Bash terminal).
 
 ```bash
 ./vendor/bin/docker-compose exec web /bin/bash
+```
+
+#### Accessing database from client
+
+```
+Host: {folder_name}.db.local
+Port: 3306
+Database: SS_mysite
+Username: root
+Password: <empty>
 ```
