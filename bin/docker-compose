@@ -21,6 +21,8 @@ wrapped_command="docker-compose -f ${package_dir}/src/project/docker-compose.yml
 # Wrap docker-compose command to use config from package, passing Wordpress context on run action
 if [ "$action" = "up" ]; then
         docker-compose -p "ssproxy" -f ${package_dir}/src/proxy/docker-compose.yml up -d
+	${wrapped_command} $*
+
         # Print information about running app container
 	echo "####"
 	echo "### Done! Your website is listening on  : http://${projectname}.local/"
@@ -28,6 +30,6 @@ if [ "$action" = "up" ]; then
 	echo "### NOTE: You may need to add a DNS route for http://${projectname}.local/ to 127.0.0.1"
 	echo "### E.g. $ echo "127.0.0.1    ${projectname}.local" >> /etc/hosts"
 	echo "####"
+else
+	${wrapped_command} $*
 fi
-
-${wrapped_command} $*
