@@ -5,7 +5,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ../../../../..:/var/www/html
-      - _ss_environment.php:/var/www/_ss_environment.php
+      - ./_ss_environment.php:/var/www/_ss_environment.php
     environment:
       - VIRTUAL_HOST=${COMPOSE_PROJECT_NAME}.local
     networks:
