@@ -13,13 +13,14 @@ projectname=${PWD##*/}
 projectname=`echo ${projectname// /_}`
 projectname=`echo ${projectname} | tr '[A-Z]' '[a-z]'`
 
+export COMPOSE_PROJECT_NAME=${projectname}
+
 # Wrap docker-compose command to use config from package
-wrapped_command="docker-compose -p \"${projectname}\" -f ${package_dir}/src/project/docker-compose.yml"
+wrapped_command="docker-compose -f ${package_dir}/src/project/docker-compose.yml"
 
 # Wrap docker-compose command to use config from package, passing Wordpress context on run action
 if [ "$action" = "up" ]; then
-	docker-compose up -p "ssproxy" -f ${package_dir}/src/proxy/docker-compose.yml -d
+        docker-compose -p "ssproxy" -f ${package_dir}/src/proxy/docker-compose.yml up -d
 fi
 
 ${wrapped_command} $*
-
