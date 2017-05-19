@@ -28,7 +28,9 @@ if [ "$action" = "up" ]; then
 	echo "### Done! Your website is listening on  : http://${projectname}.local/"
 	echo "###"
 	echo "### NOTE: You may need to add a DNS route for http://${projectname}.local/ to 127.0.0.1"
-	echo "### E.g. $ echo "127.0.0.1    ${projectname}.local" >> /etc/hosts"
+	echo "###"
+	echo "### E.g."
+	echo "###      $ echo "127.0.0.1    ${projectname}.local" >> /etc/hosts"
 	echo "####"
 else
 	${wrapped_command} $*
