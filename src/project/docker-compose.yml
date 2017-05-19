@@ -9,7 +9,7 @@ services:
       - VIRTUAL_HOST=${COMPOSE_PROJECT_NAME}.local
     networks:
       - default
-      - ssnginxproxy_default
+      - ssproxy_default
 
   database:
     image: mysql
@@ -21,11 +21,11 @@ services:
       - VIRTUAL_HOST=${COMPOSE_PROJECT_NAME}.db.local
     networks:
       - default
-      - ssnginxproxy_default
+      - ssproxy_default
 
 volumes:
   db-data:
 
 networks:
-  ssnginxproxy_default:
+  ssproxy_default:
     external: true
