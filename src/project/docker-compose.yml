@@ -4,8 +4,7 @@ services:
     image: brettt89/silverstripe-web
     working_dir: /var/www/html
     volumes:
-      - ../../../../..:/var/www/html
-      - .env:/var/www/.env
+      - ${PWD}:/var/www/html
     environment:
       - VIRTUAL_HOST=${COMPOSE_PROJECT_NAME}.local
     networks:

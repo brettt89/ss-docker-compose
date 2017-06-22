@@ -10,28 +10,40 @@ Can be used on multiple environments at the same time.
 ## Requirements
 
 * [Docker](https://docs.docker.com/engine/installation/)
-* SilverStripe 3.1+
+
+## Install
+
+To install globally run:
+
+`composer global require brettt89/ss4-docker-compose`
+
+Make sure your `~/.composer/vendor/bin` directory is in your PATH.
+
+`echo 'export PATH=$PATH:~/.composer/vendor/bin/'  >> ~/.bash_profile`
+
+Then you can run this script with `docker-ss <docker-compose command>` in your project root.
 
 ## How to use
 
-### Require ss4-docker-compose configuration
+`docker-ss` in a nutshell is basically a wrapper for `docker-compose` with some added functionality and checks. all `docker-compose` commands should run as expected via `docker-ss`
 
-#### SilverStripe 4.x
+### Environment file
 
-```bash
-composer require --dev brettt89/ss4-docker-compose:4.x-dev
+Ensure you have an environment file setup in your project root with the following settings.
+
 ```
-
-#### SilverStripe 3.x
-
-```bash
-composer require --dev brettt89/ss4-docker-compose:3.x-dev
+# DB credentials
+SS_DATABASE_CLASS = "MySQLPDODatabase"
+SS_DATABASE_SERVER = "database"
+SS_DATABASE_USERNAME = "root"
+SS_DATABASE_PASSWORD = ""
+SS_DATABASE_NAME = "SS_mysite"
 ```
 
 ### Start services
 
 ```bash
-./vendor/bin/docker-compose up -d
+docker-ss up -d
 ```
 
 By default, this setup will create 2 containers per project and 1 global nginx proxy (ss-proxy).
@@ -47,7 +59,7 @@ NOTE: In order to access the servers by hostname you will need to map these doma
 E.g. File: `/etc/hosts`, (`{folder_name} = "./ss4"`)
 
 ```hostfile
-127.0.0.1	ss4.local
+127.0.0.1	ss4.local ss4.db.local
 ```
 
 ### Advanced usage
@@ -59,13 +71,13 @@ However all docker-compose commands can be used via this package as per usual.
 #### Running dev/build.
 
 ```bash
-./vendor/bin/docker-compose exec web ./framework/sake dev/build
+docker-ss exec web ./framework/sake dev/build
 ```
 
 #### SSH into web server (Bash terminal).
 
 ```bash
-./vendor/bin/docker-compose exec web /bin/bash
+docker-ss ssh
 ```
 
 #### Accessing database from client

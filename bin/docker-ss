@@ -4,7 +4,11 @@
 command -v docker >/dev/null 2>&1 || { echo "docker is not installed. Aborting." >&2; exit 1; }
 command -v docker-compose >/dev/null 2>&1 || { echo "docker-compose is not installed. Aborting." >&2; exit 1; }
 
-package_dir="vendor/brettt89/ss4-docker-compose"
+if [ -z "$COMPOSER_HOME" ]; then
+    package_dir="${HOME}/.composer/vendor/brettt89/ss4-docker-compose"
+else
+    package_dir="${COMPOSER_HOME}/vendor/brettt89/ss4-docker-compose"
+fi
 
 action=$1
 
@@ -20,18 +24,20 @@ wrapped_command="docker-compose -f ${package_dir}/src/project/docker-compose.yml
 
 # Wrap docker-compose command to use config from package, passing Wordpress context on run action
 if [ "$action" = "up" ]; then
-        docker-compose -p "ssproxy" -f ${package_dir}/src/proxy/docker-compose.yml up -d
+    docker-compose -p "ssproxy" -f ${package_dir}/src/proxy/docker-compose.yml up -d
 	${wrapped_command} $*
 
-        # Print information about running app container
-	echo "####"
+    # Print information about running app container
+	echo "###"
 	echo "### Done! Your website is listening on  : http://${projectname}.local/"
 	echo "###"
 	echo "### NOTE: You may need to add a DNS route for http://${projectname}.local/ to 127.0.0.1"
 	echo "###"
 	echo "### E.g."
-	echo "###      $ echo "127.0.0.1    ${projectname}.local" >> /etc/hosts"
-	echo "####"
+	echo "###      $ sudo echo \"127.0.0.1    ${projectname}.local\" >> /etc/hosts"
+	echo "###"
+elif [ "$action" = "ssh" ]; then
+    ${wrapped_command} exec web /bin/bash
 else
 	${wrapped_command} $*
 fi
