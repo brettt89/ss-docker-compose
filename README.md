@@ -71,7 +71,7 @@ However all docker-compose commands can be used via this package as per usual.
 #### Running dev/build.
 
 ```bash
-docker-ss exec web ./framework/sake dev/build
+docker-ss exec web ./vendor/bin/sake dev/build
 ```
 
 #### SSH into web server (Bash terminal).
